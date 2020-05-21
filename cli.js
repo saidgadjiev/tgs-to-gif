@@ -22,6 +22,7 @@ const main = async function () {
   });
   parser.addArgument('--height', {help: 'Output image height. Default: auto', type: Number});
   parser.addArgument('--width', {help: 'Output image width. Default: auto', type: Number});
+  parser.addArgument('--out', {help: 'Output image path. Default: auto', type: String});
   parser.addArgument('paths', {help: 'Paths to .tgs files to convert', nargs: '+'});
 
   const args = parser.parseArgs();
@@ -43,7 +44,7 @@ const main = async function () {
     chromiumPath: process.env['CHROMIUM_PATH'],
     useSandbox: JSON.parse(process.env['USE_SANDBOX'] || 'true'),
   });
-  await convertFiles(paths, browser, {width: args.width, height: args.height});
+  await convertFiles(paths, browser, {width: args.width, height: args.height, output: args.out});
   await browser.close();
 };
 
